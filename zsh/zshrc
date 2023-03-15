@@ -1,0 +1,75 @@
+if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
+    print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
+    command mkdir -p "$HOME/.local/share/zinit" && command chmod g-rwX "$HOME/.local/share/zinit"
+    command git clone https://github.com/zdharma-continuum/zinit "$HOME/.local/share/zinit/zinit.git" && \
+        print -P "%F{33} %F{34}Installation successful.%f%b" || \
+        print -P "%F{160} The clone has failed.%f%b"
+fi
+
+source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+
+
+source $HOME/.config/zsh/aliases.zsh
+source $HOME/.config/zsh/env.zsh
+source $HOME/.config/zsh/fzf.zsh
+
+fpath=($HOME/.config/zsh/funcs $fpath)
+autoload +X gdbs
+autoload +X mcd
+
+# poetry completion
+autoload -Uz compinit && compinit
+
+# =================
+# OMZ
+# =================
+zinit snippet OMZL::git.zsh
+
+zinit ice lucid wait='1'
+zinit snippet OMZP::git
+zi cdclear -q
+
+zinit snippet OMZP::archlinux
+zinit snippet OMZL::completion.zsh
+zinit snippet OMZL::history.zsh
+zinit snippet OMZL::key-bindings.zsh
+zinit snippet OMZL::theme-and-appearance.zsh
+zinit snippet OMZP::colored-man-pages/colored-man-pages.plugin.zsh
+
+zinit ice svn
+zinit snippet OMZP::extract
+
+# =================
+# prompt
+# =================
+zinit ice as"command" from"gh-r" \
+          atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
+          atpull"%atclone" src"init.zsh"
+zinit light starship/starship
+
+# =================
+# z
+# =================
+eval "$(zoxide init zsh)"
+
+# =================
+# vi-mode
+# =================
+zinit ice depth=1
+zinit light jeffreytse/zsh-vi-mode
+
+# =================
+# highlight & completion
+# =================
+zinit wait lucid for \
+ atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
+    zdharma-continuum/fast-syntax-highlighting \
+ blockf \
+    zsh-users/zsh-completions \
+ atload"!_zsh_autosuggest_start" \
+    zsh-users/zsh-autosuggestions
+
+zinit ice wait lucid
+zinit load zdharma-continuum/history-search-multi-word
