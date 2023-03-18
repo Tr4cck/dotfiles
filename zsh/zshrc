@@ -18,6 +18,7 @@ source $HOME/.config/zsh/fzf.zsh
 fpath=($HOME/.config/zsh/funcs $fpath)
 autoload +X gdbs
 autoload +X mcd
+autoload +X hubhosts
 
 # poetry completion
 autoload -Uz compinit && compinit
