@@ -1,0 +1,10 @@
+/*
+/*/
+
+!/.gitignore
+!/zsh/
+zsh/env.zsh
+!/neofetch/
+!/ranger/
+ranger/plugins/__pycache__
+!/nvim/
