@@ -5,6 +5,7 @@ alias i='ipython'
 alias vim='nvim'
 alias grep='grep --color -i'
 alias l='ls -alh'
+alias diary='vim $(date +"%Y-%m-%d").md'
 
 alias syscall32='bat /usr/include/asm/unistd_32.h'
 alias syscall64='bat /usr/include/asm/unistd_64.h'
