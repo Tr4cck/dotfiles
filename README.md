@@ -1,9 +1,10 @@
-# My Personal Dotfiles
+# My dotfiles
 
-## What I am using
+I' m migrating to Gentoo with Hyprland now...
+
+## Important sutff
 
 - [zsh](https://www.zsh.org/) with [zinit](https://github.com/zdharma-continuum/zinit)
-
 - [neofetch](https://github.com/dylanaraps/neofetch)
 
 - [ranger](https://github.com/ranger/ranger) maybe [joshuto](https://github.com/kamiyaa/joshuto) in the future
@@ -12,5 +13,5 @@
 
 - [fzf](https://github.com/junegunn/fzf) everywhere
 
-- trying [wezterm](https://github.com/wez/wezterm)
-
+- ~[wezterm](https://github.com/wez/wezterm)~ [alacritty](https://github.com/alacritty/alacritty)
+- [nemo](https://github.com/linuxmint/nemo)
