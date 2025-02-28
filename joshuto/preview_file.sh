@@ -7,6 +7,10 @@
 ## ```
 ## preview_script = "~/.config/joshuto/preview_file.sh"
 ## ```
+## Make sure the file is marked as executable:
+## ```sh
+## chmod +x ~/.config/joshuto/preview_file.sh
+## ```
 ## Joshuto will call this script for each file when first hovered by the cursor.
 ## If this script returns with an exit code 0, the stdout of this script will be
 ## the file's preview text in Joshuto's right panel.
@@ -36,6 +40,10 @@ IFS=$'\n'
 # * nounset causes bash to fail if an undeclared variable is used (e.g. typos)
 # * pipefail causes a pipeline to fail also if a command other than the last one fails
 set -o noclobber -o noglob -o nounset -o pipefail
+
+# Enable exiftool large file support
+shopt -s expand_aliases
+alias exiftool='exiftool -api largefilesupport=1'
 
 FILE_PATH=""
 PREVIEW_WIDTH=10
@@ -79,6 +87,7 @@ handle_extension() {
             ## PDF
         pdf)
             ## Preview as text conversion
+            zathura "${FILE_PATH}" && exit 0
             pdftotext -l 10 -nopgbrk -q -- "${FILE_PATH}" - | \
                 fmt -w "${PREVIEW_WIDTH}" && exit 0
             mutool draw -F txt -i -- "${FILE_PATH}" 1-10 | \
@@ -92,11 +101,15 @@ handle_extension() {
             exit 1 ;;
 
             ## OpenDocument
-        odt|ods|odp|sxw)
+        odt|sxw)
             ## Preview as text conversion
             odt2txt "${FILE_PATH}" && exit 0
             ## Preview as markdown conversion
             pandoc -s -t markdown -- "${FILE_PATH}" && exit 0
+            exit 1 ;;
+        ods|odp)
+            ## Preview as text conversion (unsupported by pandoc for markdown)
+            odt2txt "${FILE_PATH}" && exit 0
             exit 1 ;;
 
             ## XLSX
@@ -186,7 +199,7 @@ handle_mime() {
             ## Image
         image/*)
             ## Preview as text conversion
-            exiftool "${FILE_PATH}" && exit 0
+            chafa "${FILE_PATH}" && exit 0
             exit 1 ;;
 
             ## Video and audio

@@ -1,34 +1,30 @@
 gdbs() {
-      echo -e "\n[*] Which debugger ?"
-      echo -e "\n1 : Legacy GDB"
-      echo "2 : peda"
-      echo "3 : gef"
-      echo "4 : pwndbg"
-          echo "5 : dashboard"
-      echo "6 : radare2"
+      echo -e "\n[*] Which debugger ?\n"
+      echo "1 : Legacy GDB"
+      echo "2 : gef"
+      echo "3 : dashboard"
+      echo "4 : radare2"
+      echo "5 : python"
 
       radare="no"
 
       read choice
       case $choice in
           1) echo "[+] gdb-switch => gdb"
-             cp ~/.gdbinit-gdb ~/.gdbinit
-             ;;
-          2) echo "[+] gdb-switch => peda"
-                 cp ~/.gdbinit-peda ~/.gdbinit
-             ;;
-          3) echo "[+] gdb-switch => gef"
-                 cp ~/.gdbinit-gef ~/.gdbinit
-             ;;
-          4) echo "[+] gdb-switch => pwndbg"
-                 cp ~/.gdbinit-pwndbg ~/.gdbinit
-             ;;
-          5) echo "[+] gdb-switch => dashboard"
-                 cp ~/.gdbinit-dashboard ~/.gdbinit
-             ;;
-          6) echo "[+] gdb-switch => radare2"
-                  radare="run"
-             ;;
+            cp $HOME/.config/gdb/.gdbinit-orig $HOME/.gdbinit
+            ;;
+          2) echo "[+] gdb-switch => gef"
+            cp $HOME/.config/gdb/.gdbinit-gef $HOME/.gdbinit
+            ;;
+          3) echo "[+] gdb-switch => dashboard"
+            cp $HOME/.config/gdb/.gdbinit-dashboard $HOME/.gdbinit
+            ;;
+          4) echo "[+] gdb-switch => radare2"
+            radare="run"
+            ;;
+          5) echo "[+] gdb-switch => python"
+            cp $HOME/.config/gdb/.gdbinit-py $HOME/.gdbinit
+            ;;
       esac
 
       if [ "$#" -eq 1 ]; then

@@ -1,69 +1,89 @@
-if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
-    print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
-    command mkdir -p "$HOME/.local/share/zinit" && command chmod g-rwX "$HOME/.local/share/zinit"
-    command git clone https://github.com/zdharma-continuum/zinit "$HOME/.local/share/zinit/zinit.git" && \
-        print -P "%F{33} %F{34}Installation successful.%f%b" || \
-        print -P "%F{160} The clone has failed.%f%b"
-fi
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+[ ! -d $ZINIT_HOME ] && mkdir -p "$(dirname $ZINIT_HOME)"
+[ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+source "${ZINIT_HOME}/zinit.zsh"
 
-source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
+# The following lines were added by compinstall
+
+zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
+zstyle ':completion:*' matcher-list '' 'm:{[:lower:]}={[:upper:]}' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'r:|[._-]=** r:|=**'
+zstyle :compinstall filename '/home/track/.zshrc'
+
+autoload -Uz compinit
+compinit
+# End of lines added by compinstall
+
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
+# ====== Shell 设置 ======
+setopt HIST_IGNORE_SPACE
 
+# ====== 加载配置文件 ======
 source $HOME/.config/zsh/aliases.zsh
 source $HOME/.config/zsh/env.zsh
 source $HOME/.config/zsh/fzf.zsh
+source /usr/bin/virtualenvwrapper.sh
+fpath=(
+  $HOME/.config/zsh/funcs
+  $fpath
+)
 
-fpath=($HOME/.config/zsh/funcs $fpath)
+# ====== 加载函数 ======
 autoload +X gdbs
-autoload +X mcd
+autoload +X mkcd
 autoload +X hubhosts
+autoload +X proxyon
+autoload +X proxyoff
+autoload +X y
 
-# poetry completion
-autoload -Uz compinit && compinit
+# ====== zinit ======
 
-# =================
+# =======
 # OMZ
-# =================
+# =======
+
+# Must Load OMZ Git library
 zinit snippet OMZL::git.zsh
 
-zinit ice lucid wait='1'
+# Load Git plugin from OMZ
 zinit snippet OMZP::git
-zi cdclear -q
+zi cdclear -q # <- forget completions provided up to this moment
 
+# ohmyzsh/ohmyzsh/tree/master/plugins
 zinit snippet OMZP::archlinux
+zinit snippet OMZP::colored-man-pages
+
+# zinit ice svn
+zinit snippet OMZP::extract
+
+# ohmyzsh/ohmyzsh/tree/master/lib
 zinit snippet OMZL::completion.zsh
 zinit snippet OMZL::history.zsh
 zinit snippet OMZL::key-bindings.zsh
-zinit snippet OMZL::theme-and-appearance.zsh
-zinit snippet OMZP::colored-man-pages/colored-man-pages.plugin.zsh
 
-zinit ice svn
-zinit snippet OMZP::extract
-
-# =================
+# =======
 # prompt
-# =================
+# =======
 zinit ice as"command" from"gh-r" \
           atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
           atpull"%atclone" src"init.zsh"
-zinit light starship/starship
+zinit load starship/starship
 
-# =================
+# =======
 # z
-# =================
+# =======
 eval "$(zoxide init zsh)"
 
-# =================
+# =======
 # vi-mode
-# =================
+# =======
 zinit ice depth=1
-zinit light jeffreytse/zsh-vi-mode
+zinit load jeffreytse/zsh-vi-mode
 
-# =================
+# =======
 # highlight & completion
-# =================
+# =======
 zinit wait lucid for \
  atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
     zdharma-continuum/fast-syntax-highlighting \
@@ -74,3 +94,23 @@ zinit wait lucid for \
 
 zinit ice wait lucid
 zinit load zdharma-continuum/history-search-multi-word
+
+# =======
+# ssh-agent start automatically
+# =======
+if [ -z "SSH_AUTH_SOCK" ] ; then
+  eval $(ssh-agent -s) > /dev/null
+fi
+
+eval "$(gh copilot alias -- zsh)"
+
+
+# BEGIN opam configuration
+# This is useful if you're using opam as it adds:
+#   - the correct directories to the PATH
+#   - auto-completion for the opam binary
+# This section can be safely removed at any time if needed.
+[[ ! -r '/home/track/.opam/opam-init/init.zsh' ]] || source '/home/track/.opam/opam-init/init.zsh' > /dev/null 2> /dev/null
+# END opam configuration
+
+if [ "$TMUX" = "" ]; then tmux attach -t TMUX || tmux new -s TMUX; fi

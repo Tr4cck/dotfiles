@@ -1,5 +1,5 @@
 hubhosts() {
   ln=$(wc -l /etc/hosts | awk '{print $1}')
-  sudo sed -i "9,${ln}d" /etc/hosts
+  sudo sed -i "7,${ln}d" /etc/hosts
   curl -sS https://gitlab.com/ineo6/hosts/-/raw/master/next-hosts | sudo tee -a /etc/hosts >/dev/null
 }

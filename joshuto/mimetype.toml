@@ -3,44 +3,29 @@ audio_default = [
   { command = "mpv", args = [
     "--",
   ] },
-  { command = "mediainfo", confirm_exit = true },
 ]
 
 image_default = [
-  { command = "qimgv", args = [
+  { command = "qview", args = [
     "--",
   ], fork = true, silent = true },
-  { command = "krita", args = [
-    "--",
-  ], fork = true, silent = true },
-  { command = "exiftool", confirm_exit = true },
-  { command = "swappy", args = [
-    "-f",
-  ], fork = true },
+  { command = "exiftool", pager = true },
 ]
 
 video_default = [
   { command = "mpv", args = [
     "--",
   ], fork = true, silent = true },
-  { command = "mediainfo", confirm_exit = true },
-  { command = "mpv", args = [
-    "--mute",
-    "on",
-    "--",
-  ], fork = true, silent = true },
 ]
 
 text_default = [
-  { command = "nvim" },
-  { command = "micro" },
-  { command = "gedit", fork = true, silent = true },
+  { command = "nvim" }, 
   { command = "bat", args = [
     "--paging=always",
   ] },
 ]
 
-reader_default = [{ command = "evince", fork = true, silent = true }]
+reader_default = [{ command = "zathura", fork = true, silent = true }]
 
 libreoffice_default = [{ command = "libreoffice", fork = true, silent = true }]
 
@@ -54,6 +39,7 @@ heic.inherit = "image_default"
 jpeg.inherit = "image_default"
 jpe.inherit = "image_default"
 jpg.inherit = "image_default"
+jxl.inherit = "image_default"
 pgm.inherit = "image_default"
 png.inherit = "image_default"
 ppm.inherit = "image_default"
@@ -64,16 +50,25 @@ svg.app_list = [
   { command = "inkscape", fork = true, silent = true },
 ]
 tiff.app_list = [
+  { command = "qview", fork = true, silent = true },
   { command = "qimgv", fork = true, silent = true },
   { command = "krita", fork = true, silent = true },
 ]
 
 ## audio formats
+aac.inherit = "audio_default"
+ac3.inherit = "audio_default"
+aiff.inherit = "audio_default"
+ape.inherit = "audio_default"
+dts.inherit = "audio_default"
 flac.inherit = "audio_default"
 m4a.inherit = "audio_default"
 mp3.inherit = "audio_default"
+oga.inherit = "audio_default"
 ogg.inherit = "audio_default"
+opus.inherit = "audio_default"
 wav.inherit = "audio_default"
+wv.inherit = "audio_default"
 
 ## video formats
 avi.inherit = "video_default"
@@ -100,8 +95,6 @@ ebuild.inherit = "text_default"
 eex.inherit = "text_default"
 env.inherit = "text_default"
 ex.inherit = "text_default"
-exs.inherit = "text_default"
-go.inherit = "text_default"
 h.inherit = "text_default"
 hpp.inherit = "text_default"
 hs.inherit = "text_default"
@@ -116,6 +109,8 @@ log.inherit = "text_default"
 md.inherit = "text_default"
 micro.inherit = "text_default"
 ninja.inherit = "text_default"
+norg.inherit = "text_default"
+org.inherit = "text_default"
 py.inherit = "text_default"
 rkt.inherit = "text_default"
 rs.inherit = "text_default"
@@ -133,50 +128,56 @@ yml.inherit = "text_default"
 
 # archive formats
 7z.app_list = [
+  { command = "file-roller", fork = true, silent = true },
   { command = "7z", args = [
     "x",
-  ], confirm_exit = true },
-  { command = "file-roller", fork = true, silent = true },
+  ] },
 ]
 bz2.app_list = [
+  { command = "file-roller", fork = true, silent = true },
   { command = "tar", args = [
     "-xvjf",
-  ], confirm_exit = true },
-  { command = "file-roller", fork = true, silent = true },
+  ] },
 ]
 gz.app_list = [
+  { command = "file-roller", fork = true, silent = true },
   { command = "tar", args = [
     "-xvzf",
-  ], confirm_exit = true },
-  { command = "file-roller", fork = true, silent = true },
+  ] },
 ]
 tar.app_list = [
+  { command = "file-roller", fork = true, silent = true },
   { command = "tar", args = [
     "-xvf",
-  ], confirm_exit = true },
-  { command = "file-roller", fork = true, silent = true },
+  ] },
 ]
 tgz.app_list = [
+  { command = "file-roller", fork = true, silent = true },
   { command = "tar", args = [
     "-xvzf",
-  ], confirm_exit = true },
-  { command = "file-roller", fork = true, silent = true },
+  ] },
 ]
 rar.app_list = [
+  { command = "file-roller", fork = true, silent = true },
   { command = "unrar", args = [
     "x",
-  ], confirm_exit = true },
-  { command = "file-roller", fork = true, silent = true },
+  ] },
 ]
 xz.app_list = [
+  { command = "file-roller", fork = true, silent = true },
   { command = "tar", args = [
     "-xvJf",
-  ], confirm_exit = true },
-  { command = "file-roller", fork = true, silent = true },
+  ] },
 ]
 zip.app_list = [
-  { command = "unzip", confirm_exit = true },
   { command = "file-roller", fork = true, silent = true },
+  { command = "unzip" },
+]
+zst.app_list = [
+  { command = "file-roller", fork = true, silent = true },
+  { command = "zstd", args = [
+      "-d"
+    ] },
 ]
 
 # misc formats
@@ -186,7 +187,7 @@ m3u.app_list = [
   { command = "micro" },
   { command = "mpv" },
   { command = "gedit", fork = true, silent = true },
-  { command = "bat", confirm_exit = true },
+  { command = "bat", pager = true },
 ]
 
 odt.inherit = "libreoffice_default"
@@ -207,9 +208,9 @@ kra.app_list = [{ command = "krita", fork = true, silent = true }]
 kdenlive.app_list = [{ command = "kdenlive", fork = true, silent = true }]
 
 tex.app_list = [
+  { command = "code", fork = true, slient = true },
   { command = "micro" },
-  { command = "gedit", fork = true, silent = true },
-  { command = "bat", confirm_exit = true },
+  { command = "bat", pager = true },
   { command = "pdflatex" },
 ]
 
