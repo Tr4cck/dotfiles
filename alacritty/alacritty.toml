@@ -1,0 +1,17 @@
+[general]
+import = [
+    "~/.config/alacritty/themes/themes/papertheme.toml"
+]
+
+[window]
+padding = { x = 9, y = 9 }
+
+[font]
+size = 16.0
+
+offset = { x = 0, y = 0 }
+
+normal      = { family = "FantasqueSansM Nerd Font", style = "Regular" }
+bold        = { family = "FantasqueSansM Nerd Font", style = "Bold" }
+italic      = { family = "FantasqueSansM Nerd Font", style = "Italic" }
+bold_italic = { family = "FantasqueSansM Nerd Font", style = "Bold Italic" }

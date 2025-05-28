@@ -25,7 +25,7 @@ source $HOME/.config/zsh/env.zsh
 source $HOME/.config/zsh/fzf.zsh
 source /usr/bin/virtualenvwrapper.sh
 fpath=(
-  $HOME/.config/zsh/funcs
+  $HOME/.config/zsh/func
   $fpath
 )
 
@@ -113,4 +113,4 @@ eval "$(gh copilot alias -- zsh)"
 [[ ! -r '/home/track/.opam/opam-init/init.zsh' ]] || source '/home/track/.opam/opam-init/init.zsh' > /dev/null 2> /dev/null
 # END opam configuration
 
-if [ "$TMUX" = "" ]; then tmux attach -t TMUX || tmux new -s TMUX; fi
+# if [ "$TMUX" = "" ]; then tmux attach -t TMUX || tmux new -s TMUX; fi
