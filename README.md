@@ -1,17 +1,29 @@
 # My dotfiles
 
-I' m migrating to Gentoo with Hyprland now...
+Arch Linux Hyprland(Wayland)
 
-## Important sutff
+## Components
 
-- [zsh](https://www.zsh.org/) with [zinit](https://github.com/zdharma-continuum/zinit)
-- [neofetch](https://github.com/dylanaraps/neofetch)
+- **Shell**. [zsh](https://www.zsh.org/) with [zinit](https://github.com/zdharma-continuum/zinit)
 
-- [ranger](https://github.com/ranger/ranger) maybe [joshuto](https://github.com/kamiyaa/joshuto) in the future
+- **Fetch**. [fastfetch](https://github.com/fastfetch-cli/fastfetch)
 
-- [tmux](https://github.com/tmux/tmux)
+- **File Manager(TUI)**. [yazi](https://github.com/sxyazi/yazi)
 
-- [fzf](https://github.com/junegunn/fzf) everywhere
+- **File Manager(GUI)**. [nemo](https://github.com/linuxmint/nemo)
 
-- ~[wezterm](https://github.com/wez/wezterm)~ [alacritty](https://github.com/alacritty/alacritty)
-- [nemo](https://github.com/linuxmint/nemo)
+- **Terminal Multiplexer**. [tmux](https://github.com/tmux/tmux)
+
+- **File Finder**. [fzf](https://github.com/junegunn/fzf)
+
+- **Terminal Emulator**. [alacritty](https://github.com/alacritty/alacritty)
+
+- **WM**. [Hyprland](https://github.com/hyprwm/Hyprland)
+
+  - **Status Bar**. [Waybar](https://github.com/Alexays/Waybar)
+
+  - **Launcher**. [tofi](https://github.com/philj56/tofi)
+
+  - **Notification Daemon**. [dunst](https://github.com/dunst-project/dunst)
+
+  - **Screen Locking Utility**. [hyprlock](https://github.com/hyprwm/hyprlock/)

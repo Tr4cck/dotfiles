@@ -1,0 +1,25 @@
+[
+  {
+    "layer": "top", // Waybar on highest layer so tooltips go over windows
+    "position": "top",
+    "modules-left": [
+      "hyprland/workspaces",
+      "hyprland/window"
+    ],
+    "modules-center": [
+      "clock",
+      "custom/weather"
+    ],
+    "modules-right": [
+      "tray",
+      "temperature", "cpu", "memory",
+      "keyboard-state",
+      "bluetooth",
+      "network",
+      "pulseaudio",
+      "backlight",
+      "battery"
+    ],
+    "include": ["$HOME/.config/waybar/modules.jsonc"] // Include the module config
+  }
+]

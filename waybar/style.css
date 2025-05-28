@@ -1,0 +1,152 @@
+@import "macchiato.css"; 
+
+* {
+    font-family: "3270 Nerd Font";
+    font-size: 18px;
+    border-radius: 0;    
+    margin: 0 2px;
+}
+
+/* Modules left */
+window#waybar {
+    margin: 0 0px;
+    background: transparent;
+    transition-property: background-color;
+    transition-duration: .3s;
+}
+
+window#waybar.hidden {
+    opacity: 0.2;
+}
+
+button {
+    border: none;
+}
+
+button:hover {
+    background: inherit;
+    box-shadow: inset 0 -3px @text;
+}
+
+#workspaces button {
+    padding: 0 5px;
+    background-color: transparent;
+    color: @text;
+}
+
+#workspaces button.active{
+    background-color: #64727D;
+    box-shadow: inset 0 -3px #ffffff;
+}
+
+#window {
+    background-color: @sapphire;
+    color: @base;
+    padding: 0 5px;
+}
+
+/* Modules center */
+#clock,
+#custom-weather {
+    background-color: @lavender;
+    padding: 0 5px;
+    margin: 0 0;
+}
+
+/* Modules right */
+/* 设置一个父容器来包裹三个组件 */
+#temperature, 
+#cpu, 
+#memory {
+    background-color: #f5a97f;
+    color: @base;
+    padding: 0 5px; /* 设置组件内部的内边距 */
+    margin: 0; /* 去掉组件之间的外边距 */
+}
+
+#memory {
+    margin-right: 5px;
+}
+
+#keyboard-state {
+    background: @pink;
+    color: @base;
+    padding: 0 5px;
+    margin-right: 5px;
+}
+
+#bluetooth {
+    background: @blue;
+    color: @base;
+    padding: 0 5px;
+    transition-duration: .3s;
+    margin-right: 5px;
+}
+
+#bluetooth:hover {
+    box-shadow: inset 0 -3px @text;
+}
+
+#network {
+    background-color: @green;
+    color: @base;
+    padding: 0 5px;
+    transition-duration: .3s;
+    margin-right: 5px;
+}
+
+#network:hover {
+    box-shadow: inset 0 -3px @text;
+}
+
+#network.disconnected {
+    background-color: @red;
+}
+
+#pulseaudio {
+    background-color: @yellow;
+    color: @base;
+    padding: 0 5px;
+    transition-duration: .3s;
+    margin-right: 5px;
+}
+
+#backlight {
+    background-color: @flamingo;
+    color: @base;
+    padding: 0 5px;
+    margin-right: 5px;
+}
+
+#battery {
+    background-color: @rosewater;
+    color: @base;
+    padding: 0 5px;
+}
+
+@keyframes blink {
+    to {
+        background-color: #ffffff;
+        color: #000000;
+    }
+}
+
+#battery.critical:not(.charging) {
+    background-color: #f53c3c;
+    color: @base;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: steps(12);
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+/* If workspaces is the leftmost module, omit left margin */
+.modules-left > widget:first-child > #workspaces {
+    margin-left: 0;
+}
+
+/* If workspaces is the rightmost module, omit right margin */
+.modules-right > widget:last-child > #workspaces {
+    margin-right: 0;
+}
